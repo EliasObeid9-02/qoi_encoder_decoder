@@ -5,9 +5,8 @@ some number of times.
 
 ## Installation:
 1. Run ```git clone https://github.com/EliasObeid9-02/qoi_encoder_decoder``` to clone this repository.
-2. Run ```cmake -S ./src -B ./build``` in the repository directory.
-3. 
-4. Go into the build direcotory and run ```make install```.
+2. Run ```cmake -S src/ -B build/``` in the repository directory.
+3. Go into the build direcotory and run ```make install```.
 
 ## Un-installation:
 1. Go to your home directory.
