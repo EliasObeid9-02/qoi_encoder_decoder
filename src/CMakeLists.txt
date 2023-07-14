@@ -5,4 +5,5 @@ set(CMAKE_CXX_FLAGS "-Wall -Wfatal-errors -Wshadow")
 
 project(qoiEncoderDecoder)
 file(GLOB_RECURSE src "*.cpp")
-add_executable(qoi_enocder_decoder ${src})
+add_executable(qoi_encoder_decoder ${src})
+install(TARGETS qoi_encoder_decoder DESTINATION ~/bin)
