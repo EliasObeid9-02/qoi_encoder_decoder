@@ -13,7 +13,7 @@ some number of times.
 2. Go into the ```bin``` directory.
 3. Run ```rm qoi_encoder_decoder``` in the ```bin``` directory to uninstall the program.
 
-#### How to use:
+## How to use:
 1. Open a terminal.
 2. Run ```qoi_encoder_decoder``` to launch the program.
 3. Input the path of the .qoi image that you want to modify.
