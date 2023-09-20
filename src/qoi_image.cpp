@@ -57,8 +57,11 @@ void Image::readHeader(const std::vector<uint8_t>& bytes)
 {
 	// the header is made up of 14 bytes:
 	// the first four bytes contain the letters "qoif"
+	constexpr std::string_view magic = "qoif";
 	for (size_t position = 0; position < 4; ++position)
 	{
+		if (bytes.at(position) != magic[position]) 
+			throw std::invalid_argument("The file is not qoi.");
 		m_imageHeader.m_qoif[position] = bytes[position];
 	}
 
@@ -69,8 +72,8 @@ void Image::readHeader(const std::vector<uint8_t>& bytes)
 	m_imageHeader.m_width = read4Bytes(bytes, 8);
 
 	// the last two bytes contain the number of channels and colorspace respectivly
-	m_imageHeader.m_channels   = bytes[12];
-	m_imageHeader.m_colorSpace = bytes[13];
+	m_imageHeader.m_channels   = bytes.at(12);
+	m_imageHeader.m_colorSpace = bytes.at(13);
 }
 
 // Combines 4 bytes into a single 32 bit unsigned integer
@@ -85,7 +88,7 @@ uint32_t Image::read4Bytes(const std::vector<uint8_t>& bytes, size_t position)
 	uint32_t data{};
 	for (int32_t i = 0; i < 4; ++i)
 	{
-		int32_t byte{bytes[position + i]};
+		int32_t byte{bytes.at(position + i)};
 		data |= (byte << ((3 - i) * 8));
 	}
 	return data;
@@ -310,11 +313,6 @@ void Image::decodeImage(const std::vector<uint8_t>& bytes)
 
 std::vector<uint8_t> Image::readImage(const std::string& imageFilePath)
 {
-	if (imageFilePath.substr(imageFilePath.size() - 4) != ".qoi")
-	{
-		throw std::invalid_argument("image file given is not qoi!");
-	}
-
 	std::vector<uint8_t> bytes;
 	std::fstream		 imageFile{imageFilePath,
 						   std::fstream::in | std::fstream::binary | std::fstream::ate};

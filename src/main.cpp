@@ -4,18 +4,17 @@
 #include <cctype>
 #include <iostream>
 #include <string>
+#include <filesystem>
 
 std::string getFilePath()
 {
 	std::string filePath{};
 	while (true)
 	{
-		std::cout << "Specify image file path (must be an absolute path): ";
+		std::cout << "Specify image file path: ";
 		std::getline(std::cin, filePath);
 
-		size_t size{filePath.size()};
-		if (size < 5 || std::count(filePath.begin(), filePath.end(), '.') > 1 ||
-			filePath.substr(size - 4) != ".qoi")
+		if (!std::filesystem::exists(filePath))
 		{
 			std::cerr << "Invalid image file path!\n";
 			continue;
